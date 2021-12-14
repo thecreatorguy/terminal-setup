@@ -1,0 +1,20 @@
+#!/bin/bash
+
+confcopy() {
+	[[ -f "$HOME/$1" ]] && [[ ! -d "$HOME/$1" ]] && [[ ! -L "$HOME/$1" ]] && rm "$HOME/$1"
+	[[ -d "$HOME/$1" ]] && [[ ! -L "$HOME/$1" ]] && rm -rf "$HOME/$1"
+	[[ ! -L "$HOME/$1" ]] && ln -s "$(pwd)/configs/$1" "$HOME/$1"
+}
+
+confcopy .vimrc
+confcopy .zshrc
+confcopy .shellinit
+confcopy .bashrc
+confcopy .oh-my-zsh/custom/themes/agnoster_updated.zsh-theme
+
+[[ -d $HOME/.oh-my-zsh ]] || sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && chsh -s $(which zsh)
+
+if [ ! -d "$HOME/.vim" ]; then
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
+fi

@@ -1,0 +1,26 @@
+# Standard aliases
+alias c=clear
+alias cl="c;l"
+cdl() {
+	cd $1
+	cl
+}
+
+# Add default gopath to the path
+export GOPATH=~/go
+export GOBIN=$GOPATH/bin
+export GOROOT=/usr/local/go
+PATH=$PATH:~/.shortcuts:$GOBIN:$GOROOT/bin:$HOME/.local/bin
+
+# Start ssh-agent and ssh-add
+eval $(ssh-agent) > /dev/null
+ssh-add ~/.ssh/id_rsa 2> /dev/null
+
+# Source local machine specific values
+[ -f ~/.localshellinit ] && source ~/.localshellinit
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}"  ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# WINHOME=/mnt/c/Users/tim
+# DOWNLOADS=$WINHOME/Downloads
