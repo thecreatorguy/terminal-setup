@@ -1,9 +1,12 @@
-# Standard aliases
-alias c=clear
-alias cl="c;l"
-cdl() {
-	cd $1
-	cl
+# Standard Aliases
+gs () { # Git Sync
+	if [ -z "${*}" ]; then
+		echo "Please provide a commit message."
+		return 1
+	fi
+	git add .
+	git commit -m "${*}"
+	git push -u origin "$(git branch --show-current)"
 }
 
 # Add default gopath to the path
